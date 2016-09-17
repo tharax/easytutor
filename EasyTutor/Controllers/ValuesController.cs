@@ -30,7 +30,7 @@ namespace EasyTutor.Controllers
                 objectToSerialize.Users = new List<User>();
                 foreach (var row in query)
                 {
-                    
+                    objectToSerialize.Users.Add(new User() {Name = row[0]});
                 }
 
             }
