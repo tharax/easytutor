@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EasyTutor.Controllers
 {
@@ -11,6 +12,7 @@ namespace EasyTutor.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IEnumerable<string> Get()
         {
             return new string[] { "Michael", "Peter", "A Third Person" };
