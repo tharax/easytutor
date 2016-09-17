@@ -25,8 +25,14 @@ namespace EasyTutor.Controllers
 
                 var selectQueryString = "SELECT TOP 100 * FROM Users";
 
-                var users = db.Query(selectQueryString);
-                return System.Web.Helpers.Json.Encode(users);
+                var query = db.Query(selectQueryString);
+                var objectToSerialize = new RootObject();
+                objectToSerialize.Users = new List<User>();
+                foreach (var row in query)
+                {
+                    
+                }
+
             }
             catch (Exception e)
             {
@@ -58,5 +64,17 @@ namespace EasyTutor.Controllers
 
     public class User
     {
+        public string Name { get; set; }
+        public string Bio { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Location { get; set; }
+        public string Image { get; set; }
+
+    }
+
+    public class RootObject
+    {
+        public List<User> Users { get; set; }
     }
 }
