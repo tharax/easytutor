@@ -18,18 +18,26 @@ namespace EasyTutor.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public string Get()
         {
-            var db = Database.Open("easytutordb");
-            var selectQueryString = "SELECT TOP 100 * FROM Users";
-            
-            var result = db.Query(selectQueryString);
-            var json = "";
-            foreach (var row in result)
+            try
             {
-                json += row.ToString();
+                var db = Database.Open("Azure_Connect");
+
+                var selectQueryString = "SELECT TOP 100 * FROM Users";
+
+                var result = db.Query(selectQueryString);
+                var json = "";
+                foreach (var row in result)
+                {
+                    json += row.ToString();
+                }
+
+
+                return json;
             }
-
-
-            return json;
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
         }
 
         // GET api/values/5
