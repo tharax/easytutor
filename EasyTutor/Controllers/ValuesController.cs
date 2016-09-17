@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Newtonsoft.Json;
@@ -24,15 +25,8 @@ namespace EasyTutor.Controllers
 
                 var selectQueryString = "SELECT TOP 100 * FROM Users";
 
-                var result = db.Query(selectQueryString);
-                var json = "";
-                foreach (var row in result)
-                {
-                    json += row.ToString();
-                }
-
-
-                return json;
+                var users = db.Query(selectQueryString);
+                return System.Web.Helpers.Json.Encode(users);
             }
             catch (Exception e)
             {
