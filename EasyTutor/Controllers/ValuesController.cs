@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using 
 
 namespace EasyTutor.Controllers
 {
@@ -15,6 +17,18 @@ namespace EasyTutor.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IEnumerable<string> Get()
         {
+            var db = WebMatrix.Data.Database.Open("TDL");
+            using (var connection = new SqlConnection(
+                       "Server=tcp:easytutor.database.windows.net;Database=easytutordb;Integrated Security=true;"
+                       ))
+            {
+                connection.Open();
+                Console.WriteLine("Connected successfully.");
+
+                Console.WriteLine("Press any key to finish...");
+                Console.ReadKey(true);
+            }
+            var person = new string[] {"Name:"};
             return new string[] { "Michael", "Peter", "A Third Person" };
         }
 
