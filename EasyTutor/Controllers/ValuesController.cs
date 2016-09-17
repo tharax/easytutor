@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Newtonsoft.Json;
 using WebMatrix.Data;
 
 namespace EasyTutor.Controllers
@@ -15,12 +16,20 @@ namespace EasyTutor.Controllers
     {
         // GET api/values
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public IEnumerable<dynamic> Get()
+        public string Get()
         {
             var db = Database.Open("easytutordb");
             var selectQueryString = "SELECT TOP 100 * FROM Users";
+            
             var result = db.Query(selectQueryString);
-            return result;
+            var json = "";
+            foreach (var row in result)
+            {
+                json += row.ToString();
+            }
+
+
+            return json;
         }
 
         // GET api/values/5
