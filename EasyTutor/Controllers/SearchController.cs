@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 using System.Web.Http.Cors;
 using System.Web.Mvc;
@@ -12,7 +13,7 @@ namespace EasyTutor.Controllers
     {
         // GET: Search/Subjects/
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public List<string> Subjects()
+        public RootObject2 Subjects()
         {
             try
             {
@@ -21,12 +22,14 @@ namespace EasyTutor.Controllers
                 var selectQueryString = "SELECT distinct name FROM topics";
 
                 var query = db.Query(selectQueryString);
-                var topics = new List<string>();
+                var result = new RootObject2();
+                var topics = new List<Topic>();
                 foreach (var row in query)
                 {
-                    topics.Add(row[0]);
+                    topics.Add(new Topic() {name = row[0]} );
                 }
-                return topics;
+                result.Topics = topics;
+                return result;
 
 
             }
@@ -34,30 +37,33 @@ namespace EasyTutor.Controllers
             {
                 Console.WriteLine(e);
             }
-            return new List<string>();
+            return new RootObject2();
         }
 
 
         // GET: Search/Tutors/Math
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public List<TopicThing> Tutors(string topic)
+        public RootObject Tutors(string topic)
         {
             try
             {
                 var db = Database.Open("Azure_Connect");
 
-                var selectQueryString = "SELECT distinct u.userid, u.name FROM users u" +
+                var selectQueryString = "SELECT distinct u.name FROM users u" +
                                         "left join userstopics ut on u.userid = ut.usersid" +
                                         "left join topics t on t.id = ut.topicsid" +
                                         "where t.name ='" + topic + "'";
 
                 var query = db.Query(selectQueryString);
-                var topics = new List<TopicThing>();
+                var result = new RootObject();
+                var users = new List<User>();
                 foreach (var row in query)
                 {
-                    topics.Add(new TopicThing { id = row[0], name = row[1]});
+                    users.Add(new User {  Name = row[0]});
                 }
-                return topics;
+
+                result.Users = users;
+                return result;
 
 
             }
@@ -65,13 +71,25 @@ namespace EasyTutor.Controllers
             {
                 Console.WriteLine(e);
             }
-            return new List<TopicThing>();
+            return new RootObject();
+
         }
     }
 
-    public class TopicThing
+    [DataContract]
+    public class Topic
     {
+        [DataMember]
         public string id;
+        [DataMember]
         public string name;
     }
+
+    [DataContract]
+    public class RootObject2
+    {
+        [DataMember]
+        public List<Topic> Topics { get; set; }
+    }
+
 }
