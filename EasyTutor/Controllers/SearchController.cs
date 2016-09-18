@@ -45,9 +45,9 @@ namespace EasyTutor.Controllers
         }
 
 
-        // GET: api/search/english
+        // GET: api/search/
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public RootObject Get(string topic)
+        public RootObject GetTutors(string topic)
         {
             try
             {
