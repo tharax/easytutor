@@ -52,7 +52,7 @@ namespace EasyTutor.Controllers
             try
             {
                 var db = Database.Open("Azure_Connect");
-                Console.WriteLine("ID: " + id);
+                
                 var selectQueryString = "SELECT u.name FROM users u" +
                                         "left join userstopics ut on u.userid = ut.usersid" +
                                         "left join topics t on t.id = ut.topicsid" +
@@ -78,7 +78,7 @@ namespace EasyTutor.Controllers
             {
                 Console.WriteLine(e);
             }
-            return new RootObject();
+            return new RootObject() {Users = new List<User>() {new User() {Name = id} } };
 
         }
     }
