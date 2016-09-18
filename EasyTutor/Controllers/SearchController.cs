@@ -16,34 +16,6 @@ namespace EasyTutor.Controllers
 {
     public class SearchController : ApiController
     {
-        // GET: api/search
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public RootObject2 Get()
-        {
-            try
-            {
-                var db = Database.Open("Azure_Connect");
-
-                var selectQueryString = "SELECT distinct name FROM topics";
-
-                var query = db.Query(selectQueryString);
-                var result = new RootObject2();
-                result.Topics = new List<Topic>();
-                foreach (var row in query)
-                {
-                    result.Topics.Add(new Topic() {Name = row[0]} );
-                }
-                return result;
-
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            return new RootObject2();
-        }
-
 
         // GET: api/search/english
         [EnableCors(origins: "*", headers: "*", methods: "*")]
