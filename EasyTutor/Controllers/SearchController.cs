@@ -50,11 +50,12 @@ namespace EasyTutor.Controllers
         public RootObject GetTutors(string id)
         {
             var error = "";
+            var selectQueryString = "";
             try
             {
                 var db = Database.Open("Azure_Connect");
                 
-                var selectQueryString = " SELECT u.name FROM users u " +
+                selectQueryString = " SELECT u.name,u.bio,u.email,u.phone,u.location,u.image FROM users u " +
                                         " left join userstopics ut on u.userid = ut.usersid " +
                                         " left join topics t on t.id = ut.topicsid " +
                                         " where t.name = @0 ";
@@ -66,7 +67,12 @@ namespace EasyTutor.Controllers
                 {
                     objectToSerialize.Users.Add(new User
                     {
-                        Name = row[0]
+                        Name = row[0],
+                        Bio = row[1],
+                        Email = row[2],
+                        Phone = row[3],
+                        Location = row[4],
+                        Image = row[5]
                         
                     });
                 }
@@ -80,7 +86,7 @@ namespace EasyTutor.Controllers
                 error = e.ToString();
                 Console.WriteLine(e);
             }
-            return new RootObject() {Users = new List<User>() {new User() {Name = id, Bio = error} } };
+            return new RootObject() {Users = new List<User>() {new User() {Name = id, Bio = error, Location = selectQueryString } } };
 
         }
     }
