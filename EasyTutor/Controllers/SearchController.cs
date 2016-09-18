@@ -10,14 +10,15 @@ namespace EasyTutor.Controllers
 {
     public class SearchController : Controller
     {
+        // GET: Search/Subjects/
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public List<string> Index()
+        public List<string> Subjects()
         {
             try
             {
                 var db = Database.Open("Azure_Connect");
 
-                var selectQueryString = "SELECT distinct topics FROM Users";
+                var selectQueryString = "SELECT distinct names FROM topics";
 
                 var query = db.Query(selectQueryString);
                 var topics = new List<string>();
@@ -25,7 +26,6 @@ namespace EasyTutor.Controllers
                 {
                     topics.Add(row[0]);
                 }
-                //var output = JsonConvert.SerializeObject(objectToSerialize);
                 return topics;
 
 
@@ -37,76 +37,41 @@ namespace EasyTutor.Controllers
             return new List<string>();
         }
 
-        // GET: Search/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
-        // GET: Search/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Search/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        // GET: Search/Tutors/Math
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public List<TopicThing> Tutors(string topic)
         {
             try
             {
-                // TODO: Add insert logic here
+                var db = Database.Open("Azure_Connect");
 
-                return RedirectToAction("Index");
+                var selectQueryString = "SELECT distinct u.userid, u.name FROM users u" +
+                                        "left join userstopics ut on u.userid = ut.usersid" +
+                                        "left join topics t on t.id = ut.topicsid" +
+                                        "where topic ='" + topic + "'";
+
+                var query = db.Query(selectQueryString);
+                var topics = new List<TopicThing>();
+                foreach (var row in query)
+                {
+                    topics.Add(new TopicThing { id = row[0], name = row[1]});
+                }
+                return topics;
+
+
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                Console.WriteLine(e);
             }
+            return new List<TopicThing>();
         }
+    }
 
-        // GET: Search/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Search/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Search/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Search/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+    public class TopicThing
+    {
+        public string id;
+        public string name;
     }
 }
