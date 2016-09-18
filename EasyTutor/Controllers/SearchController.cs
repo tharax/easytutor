@@ -49,6 +49,7 @@ namespace EasyTutor.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public RootObject GetTutors(string id)
         {
+            var error = "";
             try
             {
                 var db = Database.Open("Azure_Connect");
@@ -76,9 +77,10 @@ namespace EasyTutor.Controllers
             }
             catch (Exception e)
             {
+                error = e.ToString();
                 Console.WriteLine(e);
             }
-            return new RootObject() {Users = new List<User>() {new User() {Name = id} } };
+            return new RootObject() {Users = new List<User>() {new User() {Name = id, Bio = error} } };
 
         }
     }
