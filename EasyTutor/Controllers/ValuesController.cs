@@ -19,7 +19,7 @@ namespace EasyTutor.Controllers
     {
         // GET api/values
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public string Get()
+        public RootObject Get()
         {
             try
             {
@@ -34,8 +34,9 @@ namespace EasyTutor.Controllers
                 {
                     objectToSerialize.Users.Add(new User() {Name = row[0]});
                 }
-                var output = JsonConvert.SerializeObject(objectToSerialize);
-                return output;
+                //var output = JsonConvert.SerializeObject(objectToSerialize);
+                return objectToSerialize;
+                
 
             }
             catch (Exception e)
