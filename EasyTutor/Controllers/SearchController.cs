@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Runtime.Serialization;
-using System.Web;
+using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Mvc;
+using Newtonsoft.Json;
 using WebMatrix.Data;
 
 namespace EasyTutor.Controllers
 {
     public class SearchController : ApiController
     {
-        // GET: Search/Subjects/
+        // GET: api/search
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public RootObject2 Subjects()
+        public RootObject2 Get()
         {
             try
             {
