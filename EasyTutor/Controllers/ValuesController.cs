@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Serialization;
 using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -65,19 +66,28 @@ namespace EasyTutor.Controllers
         }
     }
 
+    [DataContract]
     public class User
     {
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
         public string Bio { get; set; }
+        [DataMember]
         public string Email { get; set; }
+        [DataMember]
         public string Phone { get; set; }
+        [DataMember]
         public string Location { get; set; }
+        [DataMember]
         public string Image { get; set; }
 
     }
 
+    [DataContract]
     public class RootObject
     {
+        [DataMember]
         public List<User> Users { get; set; }
     }
 }
