@@ -90,8 +90,6 @@ namespace EasyTutor.Controllers
         public string Location { get; set; }
         [DataMember]
         public string Image { get; set; }
-        [DataMember]
-        public string Id { get; set; }
     }
 
     [DataContract]
