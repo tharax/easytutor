@@ -25,7 +25,7 @@ namespace EasyTutor.Controllers
             {
                 var db = Database.Open("Azure_Connect");
 
-                var selectQueryString = "SELECT TOP 100 * FROM Users order by bio desc";
+                var selectQueryString = "SELECT TOP 100 * FROM Users";
 
                 var query = db.Query(selectQueryString);
                 var objectToSerialize = new RootObject();
@@ -34,17 +34,16 @@ namespace EasyTutor.Controllers
                 {
                     objectToSerialize.Users.Add(new User()
                     {
-                        Name = row[0],
-                        Bio = row[1],
-                        Email = row[2],
-                        Phone = row[3],
-                        Location = row[4],
-                        Image = row[5]
+                        Id = row[0],
+                        Name = row[1],
+                        Bio = row[2],
+                        Email = row[3],
+                        Phone = row[4],
+                        Location = row[5],
+                        Image = row[6]
                     });
                 }
-                //var output = JsonConvert.SerializeObject(objectToSerialize);
                 return objectToSerialize;
-                
 
             }
             catch (Exception e)
@@ -91,7 +90,8 @@ namespace EasyTutor.Controllers
         public string Location { get; set; }
         [DataMember]
         public string Image { get; set; }
-
+        [DataMember]
+        public string Id { get; set; }
     }
 
     [DataContract]
