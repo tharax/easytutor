@@ -41,8 +41,9 @@ namespace EasyTutor.Controllers
             }
             catch (Exception e)
             {
-                return e.ToString();
+                Console.WriteLine(e);
             }
+            return new RootObject();
         }
 
         // GET api/values/5
