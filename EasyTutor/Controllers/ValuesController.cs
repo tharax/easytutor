@@ -32,7 +32,15 @@ namespace EasyTutor.Controllers
                 objectToSerialize.Users = new List<User>();
                 foreach (var row in query)
                 {
-                    objectToSerialize.Users.Add(new User() {Name = row[0]});
+                    objectToSerialize.Users.Add(new User()
+                    {
+                        Name = row[0],
+                        Bio = row[1],
+                        Email = row[2],
+                        Phone = row[3],
+                        Location = row[4],
+                        Image = row[5]
+                    });
                 }
                 //var output = JsonConvert.SerializeObject(objectToSerialize);
                 return objectToSerialize;
