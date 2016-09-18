@@ -31,7 +31,7 @@ namespace EasyTutor.Controllers
                 result.Topics = new List<Topic>();
                 foreach (var row in query)
                 {
-                    result.Topics.Add(new Topic() {name = row[0]} );
+                    result.Topics.Add(new Topic() {Name = row[0]} );
                 }
                 return result;
 
