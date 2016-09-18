@@ -23,12 +23,11 @@ namespace EasyTutor.Controllers
 
                 var query = db.Query(selectQueryString);
                 var result = new RootObject2();
-                var topics = new List<Topic>();
+                result.Topics = new List<Topic>();
                 foreach (var row in query)
                 {
-                    topics.Add(new Topic() {name = row[0]} );
+                    result.Topics.Add(new Topic() {name = row[0]} );
                 }
-                result.Topics = topics;
                 return result;
 
 
@@ -56,13 +55,12 @@ namespace EasyTutor.Controllers
 
                 var query = db.Query(selectQueryString);
                 var result = new RootObject();
-                var users = new List<User>();
+                result.Users = new List<User>();
                 foreach (var row in query)
                 {
-                    users.Add(new User {  Name = row[0]});
+                    result.Users.Add(new User {  Name = row[0]});
                 }
-
-                result.Users = users;
+                
                 return result;
 
 
@@ -80,9 +78,7 @@ namespace EasyTutor.Controllers
     public class Topic
     {
         [DataMember]
-        public string id;
-        [DataMember]
-        public string name;
+        public string name { get; set; }
     }
 
     [DataContract]
