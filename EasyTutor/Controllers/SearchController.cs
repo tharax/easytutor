@@ -54,10 +54,10 @@ namespace EasyTutor.Controllers
             {
                 var db = Database.Open("Azure_Connect");
                 
-                var selectQueryString = "SELECT u.name FROM users u" +
-                                        "left join userstopics ut on u.userid = ut.usersid" +
-                                        "left join topics t on t.id = ut.topicsid" +
-                                        "where t.name = @0";
+                var selectQueryString = " SELECT u.name FROM users u " +
+                                        " left join userstopics ut on u.userid = ut.usersid " +
+                                        " left join topics t on t.id = ut.topicsid " +
+                                        " where t.name = @0 ";
 
                 var query = db.Query(selectQueryString, id);
                 var objectToSerialize = new RootObject();
