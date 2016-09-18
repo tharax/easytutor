@@ -18,7 +18,7 @@ namespace EasyTutor.Controllers
             {
                 var db = Database.Open("Azure_Connect");
 
-                var selectQueryString = "SELECT distinct names FROM topics";
+                var selectQueryString = "SELECT distinct name FROM topics";
 
                 var query = db.Query(selectQueryString);
                 var topics = new List<string>();
@@ -49,7 +49,7 @@ namespace EasyTutor.Controllers
                 var selectQueryString = "SELECT distinct u.userid, u.name FROM users u" +
                                         "left join userstopics ut on u.userid = ut.usersid" +
                                         "left join topics t on t.id = ut.topicsid" +
-                                        "where topic ='" + topic + "'";
+                                        "where t.name ='" + topic + "'";
 
                 var query = db.Query(selectQueryString);
                 var topics = new List<TopicThing>();
