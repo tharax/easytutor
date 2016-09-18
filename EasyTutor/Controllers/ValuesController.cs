@@ -33,12 +33,8 @@ namespace EasyTutor.Controllers
                 {
                     objectToSerialize.Users.Add(new User() {Name = row[0]});
                 }
-                var js = new Newtonsoft.Json.JsonSerializer();
-                var result = "";
-                var x = new JsonTextWriter(new StringWriter());
-                js.Serialize(x, objectToSerialize);
-                return x.ToString();
-
+                var output = JsonConvert.SerializeObject(objectToSerialize);
+                return output;
 
             }
             catch (Exception e)
