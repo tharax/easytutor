@@ -45,9 +45,9 @@ namespace EasyTutor.Controllers
         }
 
 
-        // GET: api/search/
+        // GET: api/search/string
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public RootObject GetTutors(string topic)
+        public RootObject GetTutors(string id)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace EasyTutor.Controllers
                 var selectQueryString = "SELECT u.name FROM users u" +
                                         "left join userstopics ut on u.userid = ut.usersid" +
                                         "left join topics t on t.id = ut.topicsid" +
-                                        "where t.name ='" + topic + "'";
+                                        "where t.name ='" + id + "'";
 
                 var query = db.Query(selectQueryString);
                 var objectToSerialize = new RootObject();
