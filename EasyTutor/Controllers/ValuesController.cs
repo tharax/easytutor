@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -32,6 +33,12 @@ namespace EasyTutor.Controllers
                 {
                     objectToSerialize.Users.Add(new User() {Name = row[0]});
                 }
+                var js = new Newtonsoft.Json.JsonSerializer();
+                var result = "";
+                var x = new JsonTextWriter(new StringWriter());
+                js.Serialize(x, objectToSerialize);
+                return x.ToString();
+
 
             }
             catch (Exception e)
