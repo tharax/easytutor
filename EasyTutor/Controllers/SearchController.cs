@@ -56,9 +56,9 @@ namespace EasyTutor.Controllers
                 var selectQueryString = "SELECT u.name FROM users u" +
                                         "left join userstopics ut on u.userid = ut.usersid" +
                                         "left join topics t on t.id = ut.topicsid" +
-                                        "where t.name =''" + id + "''";
+                                        "where t.name = @0";
 
-                var query = db.Query(selectQueryString);
+                var query = db.Query(selectQueryString, id);
                 var objectToSerialize = new RootObject();
                 objectToSerialize.Users = new List<User>();
                 foreach (var row in query)
