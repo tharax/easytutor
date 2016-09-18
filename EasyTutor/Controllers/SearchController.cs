@@ -45,9 +45,9 @@ namespace EasyTutor.Controllers
         }
 
 
-        // GET: Search/Tutors/Math
+        // GET: api/search/english
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public RootObject Tutors(string topic)
+        public RootObject Get(string topic)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace EasyTutor.Controllers
     public class Topic
     {
         [DataMember]
-        public string name { get; set; }
+        public string Name { get; set; }
     }
 
     [DataContract]
