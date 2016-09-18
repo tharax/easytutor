@@ -9,7 +9,7 @@ using WebMatrix.Data;
 
 namespace EasyTutor.Controllers
 {
-    public class SearchController : Controller
+    public class SearchController : ApiController
     {
         // GET: Search/Subjects/
         [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -48,20 +48,24 @@ namespace EasyTutor.Controllers
             {
                 var db = Database.Open("Azure_Connect");
 
-                var selectQueryString = "SELECT distinct u.name FROM users u" +
+                var selectQueryString = "SELECT u.name FROM users u" +
                                         "left join userstopics ut on u.userid = ut.usersid" +
                                         "left join topics t on t.id = ut.topicsid" +
                                         "where t.name ='" + topic + "'";
 
                 var query = db.Query(selectQueryString);
-                var result = new RootObject();
-                result.Users = new List<User>();
+                var objectToSerialize = new RootObject();
+                objectToSerialize.Users = new List<User>();
                 foreach (var row in query)
                 {
-                    result.Users.Add(new User {  Name = row[0]});
+                    objectToSerialize.Users.Add(new User
+                    {
+                        Name = row[0]
+                        
+                    });
                 }
                 
-                return result;
+                return objectToSerialize;
 
 
             }
