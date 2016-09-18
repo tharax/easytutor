@@ -25,7 +25,7 @@ namespace EasyTutor.Controllers
             {
                 var db = Database.Open("Azure_Connect");
 
-                var selectQueryString = "SELECT TOP 100 * FROM Users";
+                var selectQueryString = "SELECT TOP 100 * FROM Users order by bio desc";
 
                 var query = db.Query(selectQueryString);
                 var objectToSerialize = new RootObject();
