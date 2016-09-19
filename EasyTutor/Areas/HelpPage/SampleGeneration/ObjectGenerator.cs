@@ -40,10 +40,7 @@ namespace EasyTutor.Areas.HelpPage
         {
             try
             {
-                if (SimpleTypeObjectGenerator.CanGenerateObject(type))
-                {
-                    return SimpleObjectGenerator.GenerateObject(type);
-                }
+                
 
                 if (type.IsArray)
                 {
@@ -395,7 +392,7 @@ namespace EasyTutor.Areas.HelpPage
 
         private class SimpleTypeObjectGenerator
         {
-            private long _index = 0;
+            private long _indexs;
             private static readonly Dictionary<Type, Func<long, object>> DefaultGenerators = InitializeGenerators();
 
             [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "These are simple type factories and cannot be split up.")]
@@ -447,10 +444,7 @@ namespace EasyTutor.Areas.HelpPage
                 return DefaultGenerators.ContainsKey(type);
             }
 
-            public object GenerateObject(Type type)
-            {
-                return DefaultGenerators[type](++_index);
-            }
+           
         }
     }
 }
