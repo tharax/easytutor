@@ -10,7 +10,7 @@ namespace EasyTutor.Controllers
     public class SearchController : ApiController
     {
         // GET: api/search
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [EnableCors("*", "*", "*")]
         public RootObject2 Get()
         {
             try
@@ -39,7 +39,7 @@ namespace EasyTutor.Controllers
 
 
         // GET: api/search/string
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        [EnableCors("*", "*", "*")]
         public RootObject GetTutors(string id)
         {
             var error = "";

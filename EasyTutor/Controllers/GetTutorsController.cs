@@ -8,21 +8,20 @@ using WebMatrix.Data;
 namespace EasyTutor.Controllers
 {
     
-    public class ValuesController : ApiController
+    public class GetTutorsController : ApiController
     {
         // GET api/values
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public RootObject Get()
+        [EnableCors("*", "*", "*")]
+        public ListOfUsers Get()
         {
             try
             {
                 var db = Database.Open("Azure_Connect");
 
-                var selectQueryString = "SELECT TOP 100 name,bio,email,phone,location,image FROM Users";
+                var selectQueryString = "SELECT Name, Bio, Email, Phone, Location, Image FROM Users";
 
                 var query = db.Query(selectQueryString);
-                var objectToSerialize = new RootObject();
-                objectToSerialize.Users = new List<User>();
+                var objectToSerialize = new ListOfUsers {Users = new List<User>()};
                 foreach (var row in query)
                 {
                     objectToSerialize.Users.Add(new User()
@@ -43,7 +42,7 @@ namespace EasyTutor.Controllers
             {
                 Console.WriteLine(e);
             }
-            return new RootObject();
+            return new ListOfUsers();
         }
     }
 
@@ -65,7 +64,7 @@ namespace EasyTutor.Controllers
     }
 
     [DataContract]
-    public class RootObject
+    public class ListOfUsers
     {
         [DataMember]
         public List<User> Users { get; set; }
